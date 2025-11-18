@@ -210,8 +210,12 @@ APP_ENV=prod
 APP_SECRET=change_me_in_prod
 
 # Base de Datos
-DB_DRIVER=mysql
-DATABASE_URL="mysql://user:pass@db:3306/exe"
+DB_DRIVER=pdo_mysql
+DB_HOST=db
+DB_PORT=3306
+DB_NAME=exelearning
+DB_USER=root
+DB_PASSWORD=secret
 
 # Rutas
 BASE_PATH=/exelearning`} 
@@ -418,10 +422,6 @@ ansible-playbook -i "192.168.1.100," -u ubuntu playbook-exelearning-ubuntu.yaml`
                 <div className="text-sm text-slate-400">Manuales y descargas</div>
               </div>
             </a>
-          </div>
-          
-          <div className="mt-12 p-4 bg-slate-900/50 rounded-lg text-sm text-slate-500">
-            Referencia PR: <span className="text-blue-400">#684 (Ansible Refactor)</span>
           </div>
         </div>
       )
