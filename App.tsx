@@ -45,83 +45,70 @@ export default function App() {
       )
     },
 
-    // Slide 1 - Nueva Arquitectura
+    // Slide 1 - Docker
     {
       id: 1,
-      title: "Nueva Arquitectura",
+      title: "Despliegue con Docker",
       content: (
-        <div className="flex flex-col items-center justify-center h-full">
-          <div className="w-full max-w-4xl bg-slate-800/50 rounded-2xl border border-slate-700 p-8">
-            <div className="text-xs font-mono text-slate-500 uppercase tracking-widest mb-6">Contenedor eXeLearning</div>
+        <div className="flex flex-col justify-center h-full gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-8">
+            <div className="w-full bg-slate-800/50 rounded-2xl border border-slate-700 p-8">
+              <div className="text-xs font-mono text-slate-500 uppercase tracking-widest mb-6">Imagen oficial</div>
 
-            <div className="grid grid-cols-3 gap-6 mb-8">
-              <div className="p-4 bg-slate-900 rounded-xl border border-blue-500/40 text-center">
-                <img src={LOGO_BUN} alt="Bun" className="h-10 mx-auto mb-2" />
-                <div className="text-blue-300 font-bold">Bun</div>
-                <div className="text-xs text-slate-400 mt-1">Runtime + servidor</div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="p-4 bg-slate-900 rounded-xl border border-blue-500/40 text-center">
+                  <img src={LOGO_DOCKER} alt="Docker" className="h-10 mx-auto mb-2" />
+                  <div className="text-blue-300 font-bold">Docker</div>
+                  <div className="text-xs text-slate-400 mt-1">GHCR y Docker Hub</div>
+                </div>
+                <div className="p-4 bg-slate-900 rounded-xl border border-cyan-500/40 text-center">
+                  <img src={LOGO_BUN} alt="Bun" className="h-10 mx-auto mb-2" />
+                  <div className="text-cyan-300 font-bold">Contenedor único</div>
+                  <div className="text-xs text-slate-400 mt-1">Listo para arrancar</div>
+                </div>
+                <div className="p-4 bg-slate-900 rounded-xl border border-purple-500/40 text-center">
+                  <Zap className="w-10 h-10 text-purple-400 mx-auto mb-2" />
+                  <div className="text-purple-300 font-bold">Multi-arquitectura</div>
+                  <div className="text-xs text-slate-400 mt-1">amd64 y arm64</div>
+                </div>
               </div>
-              <div className="p-4 bg-slate-900 rounded-xl border border-cyan-500/40 text-center">
-                <img src={LOGO_TYPESCRIPT} alt="TypeScript" className="h-10 mx-auto mb-2" />
-                <div className="text-cyan-300 font-bold">TypeScript</div>
-                <div className="text-xs text-slate-400 mt-1">Elysia framework</div>
-              </div>
-              <div className="p-4 bg-slate-900 rounded-xl border border-purple-500/40 text-center">
-                <Zap className="w-10 h-10 text-purple-400 mx-auto mb-2" />
-                <div className="text-purple-300 font-bold">Yjs WebSocket</div>
-                <div className="text-xs text-slate-400 mt-1">Colaboración real-time</div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-3 bg-slate-900/50 rounded-lg border border-slate-700 flex items-center gap-3">
+                  <Database className="text-amber-400 w-5 h-5 flex-shrink-0" />
+                  <span className="text-sm text-slate-300">SQLite para demo · Postgres/MariaDB para producción</span>
+                </div>
+                <div className="p-3 bg-slate-900/50 rounded-lg border border-slate-700 flex items-center gap-3">
+                  <Shield className="text-green-400 w-5 h-5 flex-shrink-0" />
+                  <span className="text-sm text-slate-300">Password, CAS, OpenID y modo guest</span>
+                </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-3 bg-slate-900/50 rounded-lg border border-slate-700 flex items-center gap-3">
-                <Database className="text-amber-400 w-5 h-5 flex-shrink-0" />
-                <span className="text-sm text-slate-300">SQLite · MariaDB · PostgreSQL</span>
-              </div>
-              <div className="p-3 bg-slate-900/50 rounded-lg border border-slate-700 flex items-center gap-3">
-                <Shield className="text-green-400 w-5 h-5 flex-shrink-0" />
-                <span className="text-sm text-slate-300">Password · CAS · OpenID · Guest</span>
-              </div>
-            </div>
-          </div>
-          <p className="mt-4 text-slate-500 text-sm text-center">
-            Un único contenedor · Multi-arquitectura (amd64 / arm64) · Imagen pública en GHCR y Docker Hub
-          </p>
-        </div>
-      )
-    },
-
-    // Slide 2 - Quick Start
-    {
-      id: 2,
-      title: "Quick Start: en segundos",
-      content: (
-        <div className="flex flex-col items-center justify-center h-full space-y-8">
-          <p className="text-xl text-slate-300">Un único comando para arrancar:</p>
-          <CodeBlock
-            code={`docker run --pull always \\
-  -p 8080:8080 \\
-  --name exelearning \\
+            <div className="flex flex-col justify-center space-y-6">
+              <div>
+                <p className="text-lg text-slate-300 mb-4">Arranque rápido con la imagen publicada:</p>
+                <CodeBlock
+                  code={`docker run --pull always \
+  -p 8080:8080 \
+  --name exelearning \
   ghcr.io/exelearning/exelearning:latest`}
-            title="Terminal"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl mt-2">
-            <div className="p-4 border-l-2 border-blue-500 bg-slate-800/50 rounded-r-lg">
-              <h4 className="font-bold text-blue-400 mb-1">URL</h4>
-              <p className="text-sm text-slate-400">http://localhost:8080</p>
+                  title="Terminal"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 gap-4">
+                <div className="p-4 border-l-2 border-blue-500 bg-slate-800/50 rounded-r-lg">
+                  <h4 className="font-bold text-blue-400 mb-1">Acceso inicial</h4>
+                  <p className="text-sm text-slate-400">http://localhost:8080 · user@exelearning.net · 1234</p>
+                </div>
+                <div className="bg-yellow-500/10 border-l-4 border-yellow-500 p-4 rounded-r-xl">
+                  <p className="text-yellow-200 text-sm">
+                    <strong>Nota:</strong> Este arranque usa SQLite y está pensado para demo; en producción conviene Docker Compose con base de datos externa.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="p-4 border-l-2 border-green-500 bg-slate-800/50 rounded-r-lg">
-              <h4 className="font-bold text-green-400 mb-1">Usuario</h4>
-              <p className="text-sm text-slate-400">user@exelearning.net</p>
-            </div>
-            <div className="p-4 border-l-2 border-purple-500 bg-slate-800/50 rounded-r-lg">
-              <h4 className="font-bold text-purple-400 mb-1">Contraseña</h4>
-              <p className="text-sm text-slate-400">1234</p>
-            </div>
-          </div>
-          <div className="bg-yellow-500/10 border-l-4 border-yellow-500 p-4 rounded-r-xl w-full max-w-4xl">
-            <p className="text-yellow-200 text-sm">
-              <strong>Nota:</strong> Esta configuración usa SQLite y solo es apta para demos. Para producción, usa Docker Compose con una base de datos externa.
-            </p>
           </div>
         </div>
       )
@@ -137,7 +124,7 @@ export default function App() {
             <img src={LOGO_SQLITE} alt="SQLite" className="h-20 mb-6 opacity-80 group-hover:opacity-100 transition-opacity" />
             <h3 className="text-xl font-bold text-blue-300 mb-2">SQLite</h3>
             <p className="text-center text-sm text-slate-400 mb-4">
-              Ideal para demos y despliegues pequeños. Sin contenedor extra.
+              La opción más simple para demos y pruebas.
             </p>
             <code className="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">docker-compose.sqlite.yml</code>
           </div>
@@ -146,7 +133,7 @@ export default function App() {
             <img src={LOGO_MARIADB} alt="MariaDB" className="h-20 mb-6 opacity-80 group-hover:opacity-100 transition-opacity" />
             <h3 className="text-xl font-bold text-amber-300 mb-2">MariaDB / MySQL</h3>
             <p className="text-center text-sm text-slate-400 mb-4">
-              Opción compatible y conocida para entornos que ya usan este stack.
+              Buena opción si ya trabajas con este stack.
             </p>
             <code className="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">docker-compose.mariadb.yml</code>
           </div>
@@ -159,7 +146,7 @@ export default function App() {
             <img src={LOGO_POSTGRES} alt="PostgreSQL" className="h-20 mb-6 opacity-80 group-hover:opacity-100 transition-opacity" />
             <h3 className="text-xl font-bold text-indigo-300 mb-2">PostgreSQL</h3>
             <p className="text-center text-sm text-slate-400 mb-4">
-              Recomendado para producción por su concurrencia, robustez y alta disponibilidad.
+              La opción recomendada para producción.
             </p>
             <code className="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">docker-compose.postgres.yml</code>
           </div>
@@ -180,42 +167,31 @@ export default function App() {
             <div className="space-y-3">
               <div className="flex items-center gap-3 p-3 bg-slate-800 rounded-lg">
                 <Database className="text-amber-400 flex-shrink-0" size={18} />
-                <span className="text-sm">Versiones para MariaDB, Postgres y SQLite</span>
+                <span className="text-sm">Plantillas para SQLite, MariaDB y PostgreSQL</span>
               </div>
               <div className="flex items-center gap-3 p-3 bg-slate-800 rounded-lg">
                 <Box className="text-blue-400 flex-shrink-0" size={18} />
-                <span className="text-sm">Volúmenes Docker pre-configurados</span>
+                <span className="text-sm">Volúmenes y puertos ya preparados</span>
               </div>
               <div className="flex items-center gap-3 p-3 bg-slate-800 rounded-lg">
                 <Shield className="text-green-400 flex-shrink-0" size={18} />
-                <span className="text-sm">Variables de entorno con valores por defecto seguros</span>
+                <span className="text-sm">Variables de entorno listas para ajustar</span>
               </div>
               <div className="flex items-center gap-3 p-3 bg-slate-800 rounded-lg">
                 <Settings className="text-purple-400 flex-shrink-0" size={18} />
-                <span className="text-sm">El mismo stack se puede desplegar remotamente con Ansible</span>
+                <span className="text-sm">El mismo stack también encaja con Ansible</span>
               </div>
             </div>
           </div>
           <div className="flex-1 flex flex-col justify-center">
             <CodeBlock
-              title="Bash / Ansible"
+              title="Bash"
               code={`# Descargar configuración
 curl -L https://raw.githubusercontent.com/exelearning/\\
 exelearning/main/doc/deploy/\\
 docker-compose.postgres.yml -o docker-compose.yml
 
-# Configurar variables de entorno
-export APP_SECRET=tu_secreto_seguro
-export DB_PASSWORD=tu_password_db
-export ADMIN_EMAIL=admin@tuorg.org
-export ADMIN_PASSWORD=admin_password
-
-# Desplegar el stack con Ansible
-ansible all -i inventario.ini -b \\
-  -m community.docker.docker_compose_v2 \\
-  -a "project_src=$(pwd) files=['docker-compose.yml'] state=present"
-
-# Arrancar
+# Ajustar secretos en .env
 docker compose up -d`}
             />
           </div>
@@ -307,7 +283,7 @@ REDIS_PASSWORD=`}
                 <code className="font-bold text-red-400">APP_SECRET</code>
                 <Shield className="text-red-400 w-4 h-4" />
               </div>
-              <p className="text-xs text-slate-500 mt-1">¡Obligatorio cambiar en producción!</p>
+              <p className="text-xs text-slate-500 mt-1">Cambiar siempre en producción</p>
             </div>
             <div className="bg-slate-800 p-3 rounded-lg border-l-4 border-orange-500 flex justify-between items-center">
               <code className="font-bold text-orange-400">API_JWT_SECRET</code>
@@ -323,7 +299,7 @@ REDIS_PASSWORD=`}
             </div>
             <div className="bg-slate-800 p-3 rounded-lg border-l-4 border-teal-500">
               <code className="font-bold text-teal-400">REDIS_HOST</code>
-              <p className="text-xs text-slate-500 mt-1">Vacío = instancia única · <code>redis</code> = HA balanceada</p>
+              <p className="text-xs text-slate-500 mt-1">Vacío = instancia única · <code>redis</code> = despliegue balanceado</p>
             </div>
           </div>
           <div className="flex-1 w-full flex flex-col justify-center">
@@ -391,7 +367,7 @@ TRUSTED_PROXIES=private_ranges,REMOTE_ADDR`}
 
           <div className="mt-4 p-3 bg-slate-800/50 rounded-lg border border-slate-700 w-full max-w-3xl">
             <p className="text-xs text-slate-400 text-center">
-              <strong className="text-slate-300">SSO (CAS/OpenID):</strong> Requiere <code className="text-teal-400">TRUSTED_PROXIES</code> configurado para construir callbacks correctamente detrás de proxy.
+              <strong className="text-slate-300">SSO:</strong> Configura <code className="text-teal-400">TRUSTED_PROXIES</code> si hay proxy inverso.
             </p>
           </div>
         </div>
