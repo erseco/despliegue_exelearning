@@ -129,15 +129,6 @@ export default function App() {
             <code className="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">docker-compose.sqlite.yml</code>
           </div>
 
-          <div className="flex flex-col items-center p-8 bg-slate-800/50 rounded-2xl border border-amber-500/30 hover:border-amber-500 transition-colors group">
-            <img src={LOGO_MARIADB} alt="MariaDB" className="h-20 mb-6 opacity-80 group-hover:opacity-100 transition-opacity" />
-            <h3 className="text-xl font-bold text-amber-300 mb-2">MariaDB / MySQL</h3>
-            <p className="text-center text-sm text-slate-400 mb-4">
-              Buena opción si ya trabajas con este stack.
-            </p>
-            <code className="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">docker-compose.mariadb.yml</code>
-          </div>
-
           <div
             className="flex flex-col items-center p-8 bg-slate-800/50 rounded-2xl border border-indigo-500/50 hover:border-indigo-500 transition-colors group relative"
             aria-label="PostgreSQL, opción recomendada"
@@ -149,7 +140,17 @@ export default function App() {
               La opción recomendada para producción.
             </p>
             <code className="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">docker-compose.postgres.yml</code>
+          </div>          
+          
+          <div className="flex flex-col items-center p-8 bg-slate-800/50 rounded-2xl border border-amber-500/30 hover:border-amber-500 transition-colors group">
+            <img src={LOGO_MARIADB} alt="MariaDB" className="h-20 mb-6 opacity-80 group-hover:opacity-100 transition-opacity" />
+            <h3 className="text-xl font-bold text-amber-300 mb-2">MariaDB / MySQL</h3>
+            <p className="text-center text-sm text-slate-400 mb-4">
+              Buena opción si ya trabajas con este stack.
+            </p>
+            <code className="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">docker-compose.mariadb.yml</code>
           </div>
+
         </div>
       )
     },
