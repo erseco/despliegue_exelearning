@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, Server, Box, Database, Settings, Key, Shield, Upload, Play, LayoutTemplate, Link as LinkIcon } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Server, Box, Database, Settings, Key, Shield, LayoutTemplate, Link as LinkIcon, Zap, Users, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CodeBlock } from './components/CodeBlock';
 import { TechIcon } from './components/TechIcon';
@@ -8,418 +8,541 @@ import { SlideData } from './types';
 // Logo Constants
 const LOGO_EXE = "https://raw.githubusercontent.com/exelearning/exelearning/main/public/images/logo_readme.png";
 const LOGO_DOCKER = "https://cdn.simpleicons.org/docker/2496ED";
-const LOGO_PHP = "https://cdn.simpleicons.org/php/777BB4";
+const LOGO_BUN = "https://cdn.simpleicons.org/bun/F4C430";
+const LOGO_TYPESCRIPT = "https://cdn.simpleicons.org/typescript/3178C6";
 const LOGO_NGINX = "https://cdn.simpleicons.org/nginx/009639";
-const LOGO_ANSIBLE = "https://cdn.simpleicons.org/ansible/EE0000";
+const LOGO_REDIS = "https://cdn.simpleicons.org/redis/DC382D";
 const LOGO_SQLITE = "https://cdn.simpleicons.org/sqlite/003B57";
 const LOGO_MARIADB = "https://cdn.simpleicons.org/mariadb/003545";
 const LOGO_POSTGRES = "https://cdn.simpleicons.org/postgresql/4169E1";
-const LOGO_ALPINE = "https://cdn.simpleicons.org/alpinelinux/0D597F";
 
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
 
   const slides: SlideData[] = [
+    // Slide 0 - Cover
     {
       id: 0,
       layout: 'center',
       content: (
         <div className="flex flex-col items-center text-center space-y-8">
-          <img src={LOGO_EXE} alt="eXeLearning" className="h-24 md:h-32 mb-8" />
+          <img src={LOGO_EXE} alt="eXeLearning" className="h-24 md:h-32 mb-4" />
           <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-teal-400">
-            Despliegue con Docker y Ansible
+            Despliegue de eXeLearning
           </h1>
           <p className="text-xl text-slate-400 max-w-2xl">
-            Cómo pasar del código a una instancia lista para usar en producción.
+            Stack moderno · Colaboración en tiempo real · Listo para producción
           </p>
-          <div className="flex gap-6 mt-12">
+          <div className="flex gap-8 mt-8 flex-wrap justify-center">
+            <TechIcon name="Bun" src={LOGO_BUN} size={48} />
+            <TechIcon name="TypeScript" src={LOGO_TYPESCRIPT} size={48} />
             <TechIcon name="Docker" src={LOGO_DOCKER} size={48} />
-            <TechIcon name="PHP 8.4" src={LOGO_PHP} size={48} />
+            <TechIcon name="Redis" src={LOGO_REDIS} size={48} />
             <TechIcon name="Nginx" src={LOGO_NGINX} size={48} />
-            <TechIcon name="Ansible" src={LOGO_ANSIBLE} size={48} />
           </div>
         </div>
       )
     },
+
+    // Slide 1 - Nueva Arquitectura
     {
       id: 1,
-      title: "Objetivos de la sesión",
+      title: "Nueva Arquitectura",
       content: (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center h-full">
-          <div className="space-y-6">
-            <div className="flex items-start gap-4 p-6 bg-blue-500/10 rounded-xl border border-blue-500/20">
-              <Box className="w-8 h-8 text-blue-400 mt-1" />
-              <div>
-                <h3 className="text-xl font-semibold text-blue-300">Requisitos</h3>
-                <p className="text-slate-400">Entender qué necesita eXeLearning para funcionar en servidor.</p>
+        <div className="flex flex-col items-center justify-center h-full">
+          <div className="w-full max-w-4xl bg-slate-800/50 rounded-2xl border border-slate-700 p-8">
+            <div className="text-xs font-mono text-slate-500 uppercase tracking-widest mb-6">Contenedor eXeLearning</div>
+
+            <div className="grid grid-cols-3 gap-6 mb-8">
+              <div className="p-4 bg-slate-900 rounded-xl border border-blue-500/40 text-center">
+                <img src={LOGO_BUN} alt="Bun" className="h-10 mx-auto mb-2" />
+                <div className="text-blue-300 font-bold">Bun</div>
+                <div className="text-xs text-slate-400 mt-1">Runtime + servidor</div>
+              </div>
+              <div className="p-4 bg-slate-900 rounded-xl border border-cyan-500/40 text-center">
+                <img src={LOGO_TYPESCRIPT} alt="TypeScript" className="h-10 mx-auto mb-2" />
+                <div className="text-cyan-300 font-bold">TypeScript</div>
+                <div className="text-xs text-slate-400 mt-1">Elysia framework</div>
+              </div>
+              <div className="p-4 bg-slate-900 rounded-xl border border-purple-500/40 text-center">
+                <Zap className="w-10 h-10 text-purple-400 mx-auto mb-2" />
+                <div className="text-purple-300 font-bold">Yjs WebSocket</div>
+                <div className="text-xs text-slate-400 mt-1">Colaboración real-time</div>
               </div>
             </div>
-            <div className="flex items-start gap-4 p-6 bg-purple-500/10 rounded-xl border border-purple-500/20">
-              <Server className="w-8 h-8 text-purple-400 mt-1" />
-              <div>
-                <h3 className="text-xl font-semibold text-purple-300">Arquitectura</h3>
-                <p className="text-slate-400">Análisis del contenedor y su estructura interna.</p>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-3 bg-slate-900/50 rounded-lg border border-slate-700 flex items-center gap-3">
+                <Database className="text-amber-400 w-5 h-5 flex-shrink-0" />
+                <span className="text-sm text-slate-300">SQLite · MariaDB · PostgreSQL</span>
+              </div>
+              <div className="p-3 bg-slate-900/50 rounded-lg border border-slate-700 flex items-center gap-3">
+                <Shield className="text-green-400 w-5 h-5 flex-shrink-0" />
+                <span className="text-sm text-slate-300">Password · CAS · OpenID · Guest</span>
               </div>
             </div>
           </div>
-          <div className="space-y-6">
-             <div className="flex items-start gap-4 p-6 bg-green-500/10 rounded-xl border border-green-500/20">
-              <Settings className="w-8 h-8 text-green-400 mt-1" />
-              <div>
-                <h3 className="text-xl font-semibold text-green-300">Configuración</h3>
-                <p className="text-slate-400">Gestión mediante variables de entorno (.env).</p>
-              </div>
-            </div>
-             <div className="flex items-start gap-4 p-6 bg-orange-500/10 rounded-xl border border-orange-500/20">
-              <Play className="w-8 h-8 text-orange-400 mt-1" />
-              <div>
-                <h3 className="text-xl font-semibold text-orange-300">Despliegue</h3>
-                <p className="text-slate-400">Docker puro, Compose y automatización con Ansible.</p>
-              </div>
-            </div>
-          </div>
+          <p className="mt-4 text-slate-500 text-sm text-center">
+            Un único contenedor · Multi-arquitectura (amd64 / arm64) · Imagen pública en GHCR y Docker Hub
+          </p>
         </div>
       )
     },
+
+    // Slide 2 - Quick Start
     {
       id: 2,
-      title: "Requisitos Básicos",
+      title: "Quick Start: en segundos",
       content: (
-        <div className="flex flex-col justify-center h-full space-y-8">
-          <ul className="space-y-6 text-lg md:text-2xl text-slate-300 pl-8">
-            <li className="flex items-center gap-4">
-              <div className="w-3 h-3 bg-blue-500 rounded-full" />
-              Servidor Linux (ej. Ubuntu 24.04 LTS)
-            </li>
-            <li className="flex items-center gap-4">
-              <div className="w-3 h-3 bg-blue-500 rounded-full" />
-              <strong>Docker Engine</strong> instalado y corriendo
-            </li>
-            <li className="flex items-center gap-4">
-              <div className="w-3 h-3 bg-blue-500 rounded-full" />
-              Acceso a Internet (pull de imágenes)
-            </li>
-          </ul>
-          <div className="bg-yellow-500/10 border-l-4 border-yellow-500 p-6 rounded-r-xl mt-8">
-            <p className="text-yellow-200 text-lg">
-              <strong className="block mb-2 uppercase tracking-wider text-xs">Idea Clave</strong>
-              Toda la aplicación vive en contenedores. No instalamos PHP ni Nginx en el sistema host ("bare metal").
+        <div className="flex flex-col items-center justify-center h-full space-y-8">
+          <p className="text-xl text-slate-300">Un único comando para arrancar:</p>
+          <CodeBlock
+            code={`docker run --pull always \\
+  -p 8080:8080 \\
+  --name exelearning \\
+  ghcr.io/exelearning/exelearning:latest`}
+            title="Terminal"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl mt-2">
+            <div className="p-4 border-l-2 border-blue-500 bg-slate-800/50 rounded-r-lg">
+              <h4 className="font-bold text-blue-400 mb-1">URL</h4>
+              <p className="text-sm text-slate-400">http://localhost:8080</p>
+            </div>
+            <div className="p-4 border-l-2 border-green-500 bg-slate-800/50 rounded-r-lg">
+              <h4 className="font-bold text-green-400 mb-1">Usuario</h4>
+              <p className="text-sm text-slate-400">user@exelearning.net</p>
+            </div>
+            <div className="p-4 border-l-2 border-purple-500 bg-slate-800/50 rounded-r-lg">
+              <h4 className="font-bold text-purple-400 mb-1">Contraseña</h4>
+              <p className="text-sm text-slate-400">1234</p>
+            </div>
+          </div>
+          <div className="bg-yellow-500/10 border-l-4 border-yellow-500 p-4 rounded-r-xl w-full max-w-4xl">
+            <p className="text-yellow-200 text-sm">
+              <strong>Nota:</strong> Esta configuración usa SQLite y solo es apta para demos. Para producción, usa Docker Compose con una base de datos externa.
             </p>
           </div>
         </div>
       )
     },
+
+    // Slide 3 - Bases de Datos
     {
       id: 3,
-      title: "Arquitectura del Contenedor",
-      content: (
-        <div className="flex flex-col items-center justify-center h-full">
-          <div className="relative w-full max-w-4xl aspect-video bg-slate-800/50 rounded-2xl border border-slate-700 p-8 flex flex-col items-center justify-between">
-            {/* Host Label */}
-            <div className="absolute top-4 left-4 text-xs font-mono text-slate-500 uppercase tracking-widest">
-              Container Context (Alpine Linux)
-            </div>
-
-            {/* Tech Stack Row */}
-            <div className="flex justify-center gap-8 mb-8 z-10">
-              <TechIcon name="PHP 8.4-FPM" src={LOGO_PHP} className="bg-slate-800 w-32" />
-              <TechIcon name="Nginx" src={LOGO_NGINX} className="bg-slate-800 w-32" />
-              <TechIcon name="Alpine" src={LOGO_ALPINE} className="bg-slate-800 w-32" />
-            </div>
-
-            {/* Connection Lines (CSS Art) */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-500 to-transparent my-4"></div>
-
-            <div className="grid grid-cols-3 gap-8 w-full text-center">
-               <div className="p-4 bg-slate-800 rounded-lg border border-slate-700">
-                 <h4 className="text-blue-400 font-bold mb-2">Nginx</h4>
-                 <p className="text-sm text-slate-400">Proxy frontal & Estáticos</p>
-               </div>
-               <div className="p-4 bg-slate-800 rounded-lg border border-slate-700">
-                 <h4 className="text-purple-400 font-bold mb-2">Symfony</h4>
-                 <p className="text-sm text-slate-400">Lógica de negocio</p>
-               </div>
-               <div className="p-4 bg-slate-800 rounded-lg border border-slate-700">
-                 <h4 className="text-teal-400 font-bold mb-2">Mercure</h4>
-                 <p className="text-sm text-slate-400">Tiempo real</p>
-               </div>
-            </div>
-          </div>
-          <p className="mt-6 text-slate-400 text-center">
-            Configuración mediante variables de entorno. Datos en volúmenes persistentes.
-          </p>
-        </div>
-      )
-    },
-    {
-      id: 4,
       title: "Bases de Datos Soportadas",
       content: (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-full items-center">
           <div className="flex flex-col items-center p-8 bg-slate-800/50 rounded-2xl border border-blue-500/30 hover:border-blue-500 transition-colors group">
-            <img src={LOGO_SQLITE} alt="SQLite" className="h-24 mb-6 opacity-80 group-hover:opacity-100 transition-opacity" />
+            <img src={LOGO_SQLITE} alt="SQLite" className="h-20 mb-6 opacity-80 group-hover:opacity-100 transition-opacity" />
             <h3 className="text-xl font-bold text-blue-300 mb-2">SQLite</h3>
-            <p className="text-center text-sm text-slate-400">
-              Ideal para desarrollo, pruebas rápidas y despliegues pequeños. Sin contenedor extra.
+            <p className="text-center text-sm text-slate-400 mb-4">
+              Ideal para demos y despliegues pequeños. Sin contenedor extra.
             </p>
+            <code className="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">docker-compose.sqlite.yml</code>
           </div>
-          
-          <div className="flex flex-col items-center p-8 bg-slate-800/50 rounded-2xl border border-amber-500/30 hover:border-amber-500 transition-colors group">
-             <img src={LOGO_MARIADB} alt="MariaDB" className="h-24 mb-6 opacity-80 group-hover:opacity-100 transition-opacity" />
+
+          <div className="flex flex-col items-center p-8 bg-slate-800/50 rounded-2xl border border-amber-500/50 hover:border-amber-500 transition-colors group relative">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-xs font-bold px-3 py-1 rounded-full">RECOMENDADO</div>
+            <img src={LOGO_MARIADB} alt="MariaDB" className="h-20 mb-6 opacity-80 group-hover:opacity-100 transition-opacity" />
             <h3 className="text-xl font-bold text-amber-300 mb-2">MariaDB / MySQL</h3>
-            <p className="text-center text-sm text-slate-400">
-              El estándar para producción clásica. Requiere un contenedor adicional.
+            <p className="text-center text-sm text-slate-400 mb-4">
+              Estándar para la mayoría de equipos. Probado y robusto.
             </p>
+            <code className="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">docker-compose.mariadb.yml</code>
           </div>
 
           <div className="flex flex-col items-center p-8 bg-slate-800/50 rounded-2xl border border-indigo-500/30 hover:border-indigo-500 transition-colors group">
-             <img src={LOGO_POSTGRES} alt="PostgreSQL" className="h-24 mb-6 opacity-80 group-hover:opacity-100 transition-opacity" />
+            <img src={LOGO_POSTGRES} alt="PostgreSQL" className="h-20 mb-6 opacity-80 group-hover:opacity-100 transition-opacity" />
             <h3 className="text-xl font-bold text-indigo-300 mb-2">PostgreSQL</h3>
-            <p className="text-center text-sm text-slate-400">
-              Robusto y avanzado. Alternativa excelente si ya tienes infraestructura Postgres.
+            <p className="text-center text-sm text-slate-400 mb-4">
+              Alto rendimiento y concurrencia. Ideal para alta disponibilidad.
             </p>
+            <code className="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">docker-compose.postgres.yml</code>
           </div>
         </div>
       )
     },
+
+    // Slide 4 - Docker Compose
+    {
+      id: 4,
+      title: "Despliegue con Docker Compose",
+      content: (
+        <div className="flex flex-col md:flex-row gap-8 h-full">
+          <div className="flex-1 flex flex-col justify-center space-y-6">
+            <p className="text-lg text-slate-300">
+              Ficheros en <code className="bg-slate-700 px-2 py-1 rounded text-sm text-amber-300">doc/deploy/</code> del repositorio.
+            </p>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 p-3 bg-slate-800 rounded-lg">
+                <Database className="text-amber-400 flex-shrink-0" size={18} />
+                <span className="text-sm">Versiones para MariaDB, Postgres y SQLite</span>
+              </div>
+              <div className="flex items-center gap-3 p-3 bg-slate-800 rounded-lg">
+                <Box className="text-blue-400 flex-shrink-0" size={18} />
+                <span className="text-sm">Volúmenes Docker pre-configurados</span>
+              </div>
+              <div className="flex items-center gap-3 p-3 bg-slate-800 rounded-lg">
+                <Shield className="text-green-400 flex-shrink-0" size={18} />
+                <span className="text-sm">Variables de entorno con valores por defecto seguros</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex-1 flex flex-col justify-center">
+            <CodeBlock
+              title="Bash"
+              code={`# Descargar configuración
+curl -L https://raw.githubusercontent.com/exelearning/\\
+exelearning/main/doc/deploy/\\
+docker-compose.mariadb.yml -o docker-compose.yml
+
+# Configurar variables de entorno
+export APP_SECRET=tu_secreto_seguro
+export DB_PASSWORD=tu_password_db
+export ADMIN_EMAIL=admin@tuorg.org
+export ADMIN_PASSWORD=admin_password
+
+# Arrancar
+docker compose up -d`}
+            />
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 5 - Alta Disponibilidad
     {
       id: 5,
-      title: "Configuración: .env",
+      title: "Alta Disponibilidad (Balanceada)",
       content: (
-        <div className="flex flex-col md:flex-row gap-8 items-center justify-center h-full">
-          <div className="flex-1 space-y-6">
-            <h3 className="text-2xl font-bold text-slate-200">El flujo de configuración</h3>
-            <ol className="space-y-4 list-decimal list-inside text-slate-300">
-              <li className="p-4 bg-slate-800 rounded-lg border border-slate-700">
-                Localizar <code className="text-pink-400">.env.dist</code> en la raíz del repositorio.
-              </li>
-              <li className="p-4 bg-slate-800 rounded-lg border border-slate-700">
-                Copiar a <code className="text-green-400">.env</code>.
-              </li>
-              <li className="p-4 bg-slate-800 rounded-lg border border-slate-700">
-                Ajustar valores según el entorno (Producción vs Desarrollo).
-              </li>
-            </ol>
-          </div>
-          <div className="flex-1 w-full">
-            <CodeBlock 
-              title=".env example"
-              code={`# Entorno
-APP_ENV=prod
-APP_SECRET=change_me_in_prod
+        <div className="flex flex-col items-center justify-center h-full space-y-6">
+          <div className="w-full max-w-4xl">
+            {/* Architecture Diagram */}
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-700 p-6 mb-4">
+              <div className="flex items-center justify-center gap-4 flex-wrap">
+                {/* Nginx LB */}
+                <div className="flex flex-col items-center p-3 bg-slate-900 rounded-xl border border-green-500/50 min-w-[100px]">
+                  <img src={LOGO_NGINX} alt="Nginx" className="h-8 mb-1" />
+                  <span className="text-xs text-green-300 font-bold">Nginx LB</span>
+                  <span className="text-xs text-slate-500">:80</span>
+                </div>
+                <span className="text-slate-500 text-2xl">→</span>
+                {/* Instances */}
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2 p-2 bg-slate-900 rounded-lg border border-blue-500/40">
+                    <img src={LOGO_BUN} alt="Bun" className="h-6" />
+                    <span className="text-xs text-blue-300">exelearning-1 :8080</span>
+                  </div>
+                  <div className="flex items-center gap-2 p-2 bg-slate-900 rounded-lg border border-blue-500/40">
+                    <img src={LOGO_BUN} alt="Bun" className="h-6" />
+                    <span className="text-xs text-blue-300">exelearning-2 :8080</span>
+                  </div>
+                </div>
+                <span className="text-slate-500 text-2xl">↔</span>
+                {/* Redis */}
+                <div className="flex flex-col items-center p-3 bg-slate-900 rounded-xl border border-red-500/50 min-w-[100px]">
+                  <img src={LOGO_REDIS} alt="Redis" className="h-8 mb-1" />
+                  <span className="text-xs text-red-300 font-bold">Redis</span>
+                  <span className="text-xs text-slate-500">Yjs Sync</span>
+                </div>
+              </div>
+            </div>
 
-# Base de Datos
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-slate-800/50 rounded-xl p-4 border border-red-500/20">
+                <div className="flex items-center gap-2 mb-2">
+                  <img src={LOGO_REDIS} alt="Redis" className="h-5" />
+                  <h4 className="font-bold text-red-300 text-sm">Redis — Sincronización Yjs</h4>
+                </div>
+                <CodeBlock
+                  code={`REDIS_HOST=redis
+REDIS_PORT=6379
+REDIS_PASSWORD=`}
+                />
+              </div>
+              <div className="bg-slate-800/50 rounded-xl p-4 border border-blue-500/20">
+                <h4 className="font-bold text-blue-300 text-sm mb-2">⚡ Arrancar stack completo</h4>
+                <CodeBlock
+                  code={`docker compose \\
+  -f docker-compose.redis.yml \\
+  up -d
+
+# nginx (LB) en puerto :80
+# 2 instancias + Redis + PostgreSQL`}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 6 - WebSocket & Yjs
+    {
+      id: 6,
+      title: "Colaboración en Tiempo Real: Yjs",
+      content: (
+        <div className="flex flex-col items-center justify-center h-full space-y-6">
+          <div className="flex items-center gap-6">
+            <div className="p-4 bg-purple-500/10 rounded-2xl border border-purple-500/40">
+              <Zap className="w-12 h-12 text-purple-400" />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-purple-300">WebSocket + Yjs</h3>
+              <p className="text-slate-400">Edición colaborativa integrada en el mismo puerto</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+            <div className="space-y-4">
+              <div className="p-4 bg-slate-800 rounded-xl border border-slate-700">
+                <Users className="w-6 h-6 text-teal-400 mb-2" />
+                <h4 className="font-bold text-teal-300 mb-1">Colaboración a nivel de iDevice</h4>
+                <p className="text-sm text-slate-400">Varios usuarios editan el mismo proyecto simultáneamente con bloqueo por iDevice o por página.</p>
+                <code className="text-xs text-yellow-400 mt-2 block">COLLABORATIVE_BLOCK_LEVEL=idevice</code>
+              </div>
+              <div className="p-4 bg-slate-800 rounded-xl border border-slate-700">
+                <Settings className="w-6 h-6 text-orange-400 mb-2" />
+                <h4 className="font-bold text-orange-300 mb-1">Sin configuración extra</h4>
+                <p className="text-sm text-slate-400">El WebSocket escucha en el mismo puerto de la app. Solo necesita soporte de upgrade en el proxy.</p>
+              </div>
+            </div>
+            <div className="flex flex-col justify-center">
+              <CodeBlock
+                title="nginx — Proxy WebSocket /yjs/"
+                code={`location /yjs/ {
+  proxy_pass http://exelearning:8080;
+  proxy_http_version 1.1;
+  proxy_set_header Upgrade $http_upgrade;
+  proxy_set_header Connection "upgrade";
+  proxy_set_header Host $host;
+  proxy_read_timeout 86400;
+}`}
+              />
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 7 - Configuración .env
+    {
+      id: 7,
+      title: "Configuración: Variables Clave",
+      content: (
+        <div className="flex flex-col md:flex-row gap-8 h-full">
+          <div className="flex-1 space-y-3">
+            <h3 className="text-xl font-semibold text-slate-200 mb-4">Núcleo</h3>
+            <div className="bg-slate-800 p-3 rounded-lg border-l-4 border-blue-500 flex justify-between items-center">
+              <code className="font-bold text-blue-400">APP_ENV</code>
+              <span className="text-slate-400 text-sm">prod / dev / test</span>
+            </div>
+            <div className="bg-slate-800 p-3 rounded-lg border-l-4 border-red-500">
+              <div className="flex justify-between items-center">
+                <code className="font-bold text-red-400">APP_SECRET</code>
+                <Shield className="text-red-400 w-4 h-4" />
+              </div>
+              <p className="text-xs text-slate-500 mt-1">¡Obligatorio cambiar en producción!</p>
+            </div>
+            <div className="bg-slate-800 p-3 rounded-lg border-l-4 border-orange-500 flex justify-between items-center">
+              <code className="font-bold text-orange-400">API_JWT_SECRET</code>
+              <span className="text-slate-400 text-sm">Tokens de API</span>
+            </div>
+            <div className="bg-slate-800 p-3 rounded-lg border-l-4 border-green-500 flex justify-between items-center">
+              <code className="font-bold text-green-400">APP_PORT</code>
+              <span className="text-slate-400 text-sm">Puerto (default: 8080)</span>
+            </div>
+            <div className="bg-slate-800 p-3 rounded-lg border-l-4 border-purple-500">
+              <code className="font-bold text-purple-400">BASE_PATH</code>
+              <p className="text-xs text-slate-500 mt-1">Vacío para raíz, o <code>/exelearning</code> para subdirectorio</p>
+            </div>
+            <div className="bg-slate-800 p-3 rounded-lg border-l-4 border-teal-500">
+              <code className="font-bold text-teal-400">REDIS_HOST</code>
+              <p className="text-xs text-slate-500 mt-1">Vacío = instancia única · <code>redis</code> = HA balanceada</p>
+            </div>
+          </div>
+          <div className="flex-1 w-full flex flex-col justify-center">
+            <CodeBlock
+              title=".env — producción mínima"
+              code={`APP_ENV=prod
+APP_SECRET=cambia_esto_en_produccion
+API_JWT_SECRET=jwt_secret_seguro
+
+# Base de datos (MariaDB recomendado)
 DB_DRIVER=pdo_mysql
 DB_HOST=db
 DB_PORT=3306
 DB_NAME=exelearning
-DB_USER=root
-DB_PASSWORD=secret
+DB_USER=exelearning
+DB_PASSWORD=password_seguro
 
-# Rutas
-BASE_PATH=/exelearning`} 
+# Admin inicial
+ADMIN_EMAIL=admin@tuorg.org
+ADMIN_PASSWORD=admin_seguro
+
+# Proxy inverso
+TRUSTED_PROXIES=private_ranges,REMOTE_ADDR`}
             />
           </div>
         </div>
       )
     },
+
+    // Slide 8 - Autenticación
     {
-      id: 6,
-      title: "Variables Clave: Núcleo",
-      content: (
-        <div className="space-y-6 max-w-4xl mx-auto">
-          <div className="grid gap-4">
-            <div className="bg-slate-800 p-4 rounded-lg border-l-4 border-blue-500 flex justify-between items-center">
-              <code className="text-lg font-bold text-blue-400">APP_ENV</code>
-              <span className="text-slate-300">prod / dev / test</span>
-            </div>
-            <div className="bg-slate-800 p-4 rounded-lg border-l-4 border-red-500 flex flex-col gap-2">
-              <div className="flex justify-between items-center">
-                <code className="text-lg font-bold text-red-400">APP_SECRET</code>
-                <Shield className="text-red-400 w-5 h-5" />
-              </div>
-              <p className="text-sm text-slate-400">¡OBLIGATORIO cambiar en producción! Se usa para firmas criptográficas.</p>
-            </div>
-            <div className="bg-slate-800 p-4 rounded-lg border-l-4 border-green-500 flex justify-between items-center">
-              <code className="text-lg font-bold text-green-400">APP_PORT</code>
-              <span className="text-slate-300">Puerto expuesto (ej. 8080)</span>
-            </div>
-             <div className="bg-slate-800 p-4 rounded-lg border-l-4 border-purple-500 flex flex-col gap-2">
-              <div className="flex justify-between items-center">
-                <code className="text-lg font-bold text-purple-400">BASE_PATH</code>
-              </div>
-              <p className="text-sm text-slate-400">
-                Vacío para raíz, o <code>/curso</code> para subdirectorios.
-              </p>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 7,
-      title: "Variables Clave: Autenticación",
+      id: 8,
+      title: "Autenticación",
       content: (
         <div className="flex flex-col items-center justify-center h-full">
-          <div className="mb-8 text-center">
-            <h3 className="text-2xl text-slate-300 mb-4">Métodos de acceso soportados</h3>
-            <code className="bg-slate-900 px-4 py-2 rounded-lg text-yellow-400 border border-yellow-500/30 text-lg">
+          <div className="mb-6 text-center">
+            <p className="text-slate-300 mb-3">Métodos configurables (combinables):</p>
+            <code className="bg-slate-900 px-4 py-2 rounded-lg text-yellow-400 border border-yellow-500/30 text-sm">
               APP_AUTH_METHODS=password,cas,openid,guest
             </code>
           </div>
-          
-          <div className="grid grid-cols-2 gap-6 w-full max-w-4xl">
-            <div className="p-6 bg-slate-800 rounded-xl border border-slate-700 hover:border-yellow-500/50 transition-colors">
-              <Key className="w-8 h-8 text-yellow-400 mb-4" />
-              <h4 className="text-lg font-bold text-white">Password</h4>
-              <p className="text-slate-400 text-sm">Base de datos local de usuarios.</p>
+
+          <div className="grid grid-cols-2 gap-4 w-full max-w-3xl">
+            <div className="p-5 bg-slate-800 rounded-xl border border-slate-700 hover:border-yellow-500/50 transition-colors">
+              <Key className="w-7 h-7 text-yellow-400 mb-3" />
+              <h4 className="text-base font-bold text-white">Password</h4>
+              <p className="text-slate-400 text-sm">Usuarios locales en base de datos.</p>
             </div>
-            <div className="p-6 bg-slate-800 rounded-xl border border-slate-700 hover:border-blue-500/50 transition-colors">
-              <Shield className="w-8 h-8 text-blue-400 mb-4" />
-              <h4 className="text-lg font-bold text-white">CAS</h4>
-              <p className="text-slate-400 text-sm">Central Authentication Service (Institucional).</p>
+            <div className="p-5 bg-slate-800 rounded-xl border border-slate-700 hover:border-blue-500/50 transition-colors">
+              <Shield className="w-7 h-7 text-blue-400 mb-3" />
+              <h4 className="text-base font-bold text-white">CAS</h4>
+              <p className="text-slate-400 text-sm">Central Authentication Service institucional.</p>
             </div>
-            <div className="p-6 bg-slate-800 rounded-xl border border-slate-700 hover:border-purple-500/50 transition-colors">
-              <LinkIcon className="w-8 h-8 text-purple-400 mb-4" />
-              <h4 className="text-lg font-bold text-white">OpenID Connect</h4>
-              <p className="text-slate-400 text-sm">Google, Microsoft, Auth0, etc.</p>
+            <div className="p-5 bg-slate-800 rounded-xl border border-slate-700 hover:border-purple-500/50 transition-colors">
+              <LinkIcon className="w-7 h-7 text-purple-400 mb-3" />
+              <h4 className="text-base font-bold text-white">OpenID Connect</h4>
+              <p className="text-slate-400 text-sm">Google, Microsoft, Auth0, Keycloak…</p>
             </div>
-             <div className="p-6 bg-slate-800 rounded-xl border border-slate-700 hover:border-green-500/50 transition-colors">
-              <LayoutTemplate className="w-8 h-8 text-green-400 mb-4" />
-              <h4 className="text-lg font-bold text-white">Guest</h4>
-              <p className="text-slate-400 text-sm">Acceso anónimo/temporal.</p>
+            <div className="p-5 bg-slate-800 rounded-xl border border-slate-700 hover:border-green-500/50 transition-colors">
+              <LayoutTemplate className="w-7 h-7 text-green-400 mb-3" />
+              <h4 className="text-base font-bold text-white">Guest</h4>
+              <p className="text-slate-400 text-sm">Acceso temporal sin registro. Proyectos se limpian automáticamente.</p>
             </div>
+          </div>
+
+          <div className="mt-4 p-3 bg-slate-800/50 rounded-lg border border-slate-700 w-full max-w-3xl">
+            <p className="text-xs text-slate-400 text-center">
+              <strong className="text-slate-300">SSO (CAS/OpenID):</strong> Requiere <code className="text-teal-400">TRUSTED_PROXIES</code> configurado para construir callbacks correctamente detrás de proxy.
+            </p>
           </div>
         </div>
       )
     },
-    {
-      id: 8,
-      title: "Quick Start: Docker Run",
-      content: (
-        <div className="flex flex-col items-center justify-center h-full space-y-8">
-          <p className="text-xl text-slate-300">Para pruebas rápidas y demos instantáneas:</p>
-          <CodeBlock 
-            code="docker run --pull always -p 8081:8080 exelearning/exelearning:main"
-            title="Terminal - Quick Start"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mt-4">
-            <div className="p-4 border-l-2 border-blue-500 bg-slate-800/50">
-              <h4 className="font-bold text-blue-400">--pull always</h4>
-              <p className="text-sm text-slate-400">Garantiza usar la última versión disponible.</p>
-            </div>
-            <div className="p-4 border-l-2 border-green-500 bg-slate-800/50">
-              <h4 className="font-bold text-green-400">http://localhost:8081</h4>
-              <p className="text-sm text-slate-400">Acceso desde el navegador.</p>
-            </div>
-          </div>
-        </div>
-      )
-    },
+
+    // Slide 9 - Proxy Inverso
     {
       id: 9,
-      title: "Despliegue con Docker Compose",
+      title: "Proxy Inverso con TLS",
       content: (
         <div className="flex flex-col md:flex-row gap-8 h-full">
-           <div className="flex-1 flex flex-col justify-center space-y-6">
-            <p className="text-lg text-slate-300">
-              Ubicado en la carpeta <code className="bg-slate-700 px-2 py-1 rounded text-sm">doc/deploy</code> del repositorio.
-            </p>
-            <ul className="space-y-4">
-              <li className="flex items-center gap-3">
-                <Database className="text-amber-400" size={20} />
-                <span>Versiones para MariaDB, Postgres, SQLite.</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Box className="text-blue-400" size={20} />
-                <span>Volúmenes pre-configurados.</span>
-              </li>
-            </ul>
-           </div>
-           <div className="flex-1 flex flex-col justify-center">
-            <CodeBlock 
-              title="Bash"
-              code={`# 1. Preparar configuración
-cp doc/deploy/docker-compose.mariadb.yml docker-compose.yml
-cp .env.dist .env
+          <div className="flex-1 flex flex-col justify-center space-y-4">
+            <div className="flex items-center gap-3 mb-2">
+              <img src={LOGO_NGINX} alt="Nginx" className="h-8" />
+              <h3 className="text-xl font-bold text-green-300">Nginx + Let's Encrypt</h3>
+            </div>
+            <div className="space-y-3">
+              <div className="p-3 bg-green-500/10 rounded-lg border border-green-500/20">
+                <Globe className="w-5 h-5 text-green-400 mb-1" />
+                <p className="text-sm text-slate-300">Termina TLS y hace proxy a <code className="text-green-400">:8080</code></p>
+              </div>
+              <div className="p-3 bg-purple-500/10 rounded-lg border border-purple-500/20">
+                <Zap className="w-5 h-5 text-purple-400 mb-1" />
+                <p className="text-sm text-slate-300">Ruta <code className="text-purple-400">/yjs/</code> con soporte <strong>WebSocket upgrade</strong></p>
+              </div>
+              <div className="p-3 bg-orange-500/10 rounded-lg border border-orange-500/20">
+                <Server className="w-5 h-5 text-orange-400 mb-1" />
+                <p className="text-sm text-slate-300">Cabeceras <code className="text-orange-400">X-Forwarded-*</code> para SSO correcto</p>
+              </div>
+            </div>
+            <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
+              <p className="text-xs text-slate-400">En <code className="text-teal-400">.env</code>:</p>
+              <code className="text-xs text-yellow-300 block mt-1">TRUSTED_PROXIES=private_ranges,REMOTE_ADDR</code>
+              <code className="text-xs text-yellow-300 block">TRUSTED_HEADERS=x-forwarded-for,x-forwarded-host,x-forwarded-proto</code>
+            </div>
+          </div>
+          <div className="flex-1 flex flex-col justify-center">
+            <CodeBlock
+              title="nginx.conf — extracto"
+              code={`server {
+  listen 443 ssl http2;
+  server_name exe.ejemplo.org;
 
-# 2. Editar variables
-vim .env
+  location / {
+    proxy_pass http://127.0.0.1:8080;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
 
-# 3. Arrancar
-docker compose up -d`}
+  # WebSocket Yjs — imprescindible
+  location /yjs/ {
+    proxy_pass http://127.0.0.1:8080;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_read_timeout 86400;
+  }
+}`}
             />
-           </div>
+          </div>
         </div>
       )
     },
+
+    // Slide 10 - Recursos
     {
       id: 10,
-      title: "Automatización con Ansible",
-      content: (
-        <div className="flex flex-col items-center h-full">
-          <div className="flex items-center gap-6 mb-8">
-             <img src={LOGO_ANSIBLE} alt="Ansible" className="w-16 h-16" />
-             <div className="text-3xl font-bold text-slate-200">+</div>
-             <img src={LOGO_EXE} alt="eXe" className="h-12" />
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-            <div className="bg-slate-800 p-6 rounded-xl border border-red-500/20">
-              <h4 className="text-red-400 font-bold mb-2 text-lg">Playbook</h4>
-              <code className="text-xs block mb-2 bg-slate-900 p-2 rounded text-slate-300">playbook-exelearning-ubuntu.yaml</code>
-              <p className="text-sm text-slate-400">Configura servidor, instala Docker, gestiona servicios.</p>
-            </div>
-             <div className="bg-slate-800 p-6 rounded-xl border border-blue-500/20">
-              <h4 className="text-blue-400 font-bold mb-2 text-lg">Template</h4>
-              <code className="text-xs block mb-2 bg-slate-900 p-2 rounded text-slate-300">.env.j2</code>
-              <p className="text-sm text-slate-400">Genera el archivo .env dinámicamente basado en variables de Ansible.</p>
-            </div>
-             <div className="bg-slate-800 p-6 rounded-xl border border-green-500/20">
-              <h4 className="text-green-400 font-bold mb-2 text-lg">Makefile</h4>
-              <code className="text-xs block mb-2 bg-slate-900 p-2 rounded text-slate-300">make deploy-remote</code>
-              <p className="text-sm text-slate-400">Comandos rápidos para despliegues locales (Multipass) o remotos.</p>
-            </div>
-          </div>
-
-           <div className="mt-8 w-full max-w-3xl">
-             <CodeBlock 
-                title="Despliegue Remoto"
-                code={`make deploy-remote
-# O manual:
-ansible-playbook -i "192.168.1.100," -u ubuntu playbook-exelearning-ubuntu.yaml`} 
-             />
-           </div>
-        </div>
-      )
-    },
-    {
-      id: 11,
-      title: "Recursos",
       layout: 'center',
       content: (
         <div className="flex flex-col items-center space-y-8">
           <h2 className="text-3xl font-bold text-white">¿Preguntas?</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl">
-            <a href="https://github.com/exelearning/exelearning" target="_blank" rel="noreferrer" className="flex items-center gap-4 p-4 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-600 transition-all">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl">
+            <a href="https://github.com/exelearning/exelearning" target="_blank" rel="noreferrer"
+              className="flex items-center gap-4 p-4 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-600 transition-all">
               <div className="bg-white text-slate-900 p-2 rounded-full">
-                <Box size={24} />
+                <Box size={22} />
               </div>
               <div>
                 <div className="font-bold text-white">GitHub Repo</div>
-                <div className="text-sm text-slate-400">Código fuente y Docs</div>
+                <div className="text-sm text-slate-400">Código fuente, issues y docs</div>
               </div>
             </a>
-            
-             <a href="http://exelearning.github.io/exelearning" target="_blank" rel="noreferrer" className="flex items-center gap-4 p-4 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-600 transition-all">
-              <div className="bg-blue-500 text-white p-2 rounded-full">
-                <LinkIcon size={24} />
+
+            <a href="https://github.com/exelearning/exelearning/blob/main/doc/deployment.md" target="_blank" rel="noreferrer"
+              className="flex items-center gap-4 p-4 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-600 transition-all">
+              <div className="bg-blue-600 text-white p-2 rounded-full">
+                <Server size={22} />
               </div>
               <div>
-                <div className="font-bold text-white">Web Oficial</div>
-                <div className="text-sm text-slate-400">Manuales y descargas</div>
+                <div className="font-bold text-white">Guía de Despliegue</div>
+                <div className="text-sm text-slate-400">doc/deployment.md</div>
+              </div>
+            </a>
+
+            <a href="https://github.com/exelearning/exelearning/blob/main/doc/deploy/README.md" target="_blank" rel="noreferrer"
+              className="flex items-center gap-4 p-4 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-600 transition-all">
+              <div className="bg-amber-600 text-white p-2 rounded-full">
+                <Database size={22} />
+              </div>
+              <div>
+                <div className="font-bold text-white">Docker Compose Files</div>
+                <div className="text-sm text-slate-400">doc/deploy/ (sqlite/mariadb/postgres/redis)</div>
+              </div>
+            </a>
+
+            <a href="https://github.com/exelearning/exelearning/blob/main/.env.dist" target="_blank" rel="noreferrer"
+              className="flex items-center gap-4 p-4 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-600 transition-all">
+              <div className="bg-green-600 text-white p-2 rounded-full">
+                <Settings size={22} />
+              </div>
+              <div>
+                <div className="font-bold text-white">.env.dist</div>
+                <div className="text-sm text-slate-400">Todas las variables de configuración</div>
               </div>
             </a>
           </div>
@@ -464,10 +587,10 @@ ansible-playbook -i "192.168.1.100," -u ubuntu playbook-exelearning-ubuntu.yaml`
       {/* Header */}
       <header className="flex justify-between items-center p-6 z-20 relative">
         <div className="flex items-center gap-3">
-           <img src={LOGO_EXE} alt="logo" className="h-8 md:h-10 opacity-90" />
-           <span className="text-sm font-mono text-slate-500 border-l border-slate-700 pl-3 ml-3">
-             Deployment Guide
-           </span>
+          <img src={LOGO_EXE} alt="logo" className="h-8 md:h-10 opacity-90" />
+          <span className="text-sm font-mono text-slate-500 border-l border-slate-700 pl-3 ml-3">
+            Deployment Guide
+          </span>
         </div>
         <div className="text-sm text-slate-500 font-mono">
           {currentSlide + 1} / {slides.length}
@@ -492,7 +615,7 @@ ansible-playbook -i "192.168.1.100," -u ubuntu playbook-exelearning-ubuntu.yaml`
               </h2>
             )}
             <div className="flex-1 overflow-y-auto scrollbar-hide">
-               {slides[currentSlide].content}
+              {slides[currentSlide].content}
             </div>
           </motion.div>
         </AnimatePresence>
@@ -500,7 +623,7 @@ ansible-playbook -i "192.168.1.100," -u ubuntu playbook-exelearning-ubuntu.yaml`
 
       {/* Navigation Controls (Bottom) */}
       <footer className="p-6 z-20 flex justify-center items-center gap-8 relative">
-        <button 
+        <button
           onClick={prevSlide}
           disabled={currentSlide === 0}
           className="p-3 rounded-full bg-slate-800/50 hover:bg-blue-500 text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed backdrop-blur-sm border border-slate-700"
@@ -510,7 +633,7 @@ ansible-playbook -i "192.168.1.100," -u ubuntu playbook-exelearning-ubuntu.yaml`
 
         {/* Progress Bar */}
         <div className="w-64 h-1.5 bg-slate-800 rounded-full overflow-hidden">
-          <motion.div 
+          <motion.div
             className="h-full bg-blue-500"
             initial={{ width: 0 }}
             animate={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}
@@ -518,7 +641,7 @@ ansible-playbook -i "192.168.1.100," -u ubuntu playbook-exelearning-ubuntu.yaml`
           />
         </div>
 
-        <button 
+        <button
           onClick={nextSlide}
           disabled={currentSlide === slides.length - 1}
           className="p-3 rounded-full bg-slate-800/50 hover:bg-blue-500 text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed backdrop-blur-sm border border-slate-700"
