@@ -187,11 +187,15 @@ export default function App() {
                 <Shield className="text-green-400 flex-shrink-0" size={18} />
                 <span className="text-sm">Variables de entorno con valores por defecto seguros</span>
               </div>
+              <div className="flex items-center gap-3 p-3 bg-slate-800 rounded-lg">
+                <Settings className="text-purple-400 flex-shrink-0" size={18} />
+                <span className="text-sm">El mismo stack se puede desplegar remotamente con Ansible</span>
+              </div>
             </div>
           </div>
           <div className="flex-1 flex flex-col justify-center">
             <CodeBlock
-              title="Bash"
+              title="Bash / Ansible"
               code={`# Descargar configuración
 curl -L https://raw.githubusercontent.com/exelearning/\\
 exelearning/main/doc/deploy/\\
@@ -202,6 +206,11 @@ export APP_SECRET=tu_secreto_seguro
 export DB_PASSWORD=tu_password_db
 export ADMIN_EMAIL=admin@tuorg.org
 export ADMIN_PASSWORD=admin_password
+
+# Desplegar el stack con Ansible
+ansible all -i inventario.ini -b \\
+  -m community.docker.docker_compose_v2 \\
+  -a "project_src=$(pwd) files=['docker-compose.yml'] state=present"
 
 # Arrancar
 docker compose up -d`}
