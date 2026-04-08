@@ -92,7 +92,7 @@ export default function App() {
                   code={`docker run --pull always \
   -p 8080:8080 \
   --name exelearning \
-  ghcr.io/exelearning/exelearning:latest`}
+  exelearning/exelearning`}
                   title="Terminal"
                 />
               </div>
