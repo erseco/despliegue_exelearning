@@ -89,10 +89,7 @@ export default function App() {
               <div>
                 <p className="text-lg text-slate-300 mb-4">Arranque rápido con la imagen publicada:</p>
                 <CodeBlock
-                  code={`docker run --pull always \
-  -p 8080:8080 \
-  --name exelearning \
-  exelearning/exelearning`}
+                  code={`docker run -p 8080:8080 exelearning/exelearning`}
                   title="Terminal"
                 />
               </div>
