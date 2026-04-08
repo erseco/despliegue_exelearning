@@ -142,21 +142,21 @@ export default function App() {
             <code className="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">docker-compose.sqlite.yml</code>
           </div>
 
-          <div className="flex flex-col items-center p-8 bg-slate-800/50 rounded-2xl border border-amber-500/50 hover:border-amber-500 transition-colors group relative">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-xs font-bold px-3 py-1 rounded-full">RECOMENDADO</div>
+          <div className="flex flex-col items-center p-8 bg-slate-800/50 rounded-2xl border border-amber-500/30 hover:border-amber-500 transition-colors group">
             <img src={LOGO_MARIADB} alt="MariaDB" className="h-20 mb-6 opacity-80 group-hover:opacity-100 transition-opacity" />
             <h3 className="text-xl font-bold text-amber-300 mb-2">MariaDB / MySQL</h3>
             <p className="text-center text-sm text-slate-400 mb-4">
-              Estándar para la mayoría de equipos. Probado y robusto.
+              Opción compatible y conocida para entornos que ya usan este stack.
             </p>
             <code className="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">docker-compose.mariadb.yml</code>
           </div>
 
-          <div className="flex flex-col items-center p-8 bg-slate-800/50 rounded-2xl border border-indigo-500/30 hover:border-indigo-500 transition-colors group">
+          <div className="flex flex-col items-center p-8 bg-slate-800/50 rounded-2xl border border-indigo-500/50 hover:border-indigo-500 transition-colors group relative">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full">RECOMENDADO</div>
             <img src={LOGO_POSTGRES} alt="PostgreSQL" className="h-20 mb-6 opacity-80 group-hover:opacity-100 transition-opacity" />
             <h3 className="text-xl font-bold text-indigo-300 mb-2">PostgreSQL</h3>
             <p className="text-center text-sm text-slate-400 mb-4">
-              Alto rendimiento y concurrencia. Ideal para alta disponibilidad.
+              Recomendado para producción por su concurrencia, robustez y alta disponibilidad.
             </p>
             <code className="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">docker-compose.postgres.yml</code>
           </div>
@@ -199,7 +199,7 @@ export default function App() {
               code={`# Descargar configuración
 curl -L https://raw.githubusercontent.com/exelearning/\\
 exelearning/main/doc/deploy/\\
-docker-compose.mariadb.yml -o docker-compose.yml
+docker-compose.postgres.yml -o docker-compose.yml
 
 # Configurar variables de entorno
 export APP_SECRET=tu_secreto_seguro
@@ -378,10 +378,10 @@ REDIS_PASSWORD=`}
 APP_SECRET=cambia_esto_en_produccion
 API_JWT_SECRET=jwt_secret_seguro
 
-# Base de datos (MariaDB recomendado)
-DB_DRIVER=pdo_mysql
+# Base de datos (PostgreSQL recomendado)
+DB_DRIVER=pdo_pgsql
 DB_HOST=db
-DB_PORT=3306
+DB_PORT=5432
 DB_NAME=exelearning
 DB_USER=exelearning
 DB_PASSWORD=password_seguro
