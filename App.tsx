@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, Server, Box, Database, Settings, Key, Shield, LayoutTemplate, Link as LinkIcon, Zap, Users, Globe } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Server, Box, Database, Settings, Key, Shield, LayoutTemplate, Link as LinkIcon, Zap, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CodeBlock } from './components/CodeBlock';
 import { TechIcon } from './components/TechIcon';
@@ -284,54 +284,6 @@ REDIS_PASSWORD=`}
 # 2 instancias + Redis + PostgreSQL`}
                 />
               </div>
-            </div>
-          </div>
-        </div>
-      )
-    },
-
-    // Slide 6 - WebSocket & Yjs
-    {
-      id: 6,
-      title: "Colaboración en Tiempo Real: Yjs",
-      content: (
-        <div className="flex flex-col items-center justify-center h-full space-y-6">
-          <div className="flex items-center gap-6">
-            <div className="p-4 bg-purple-500/10 rounded-2xl border border-purple-500/40">
-              <Zap className="w-12 h-12 text-purple-400" />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-purple-300">WebSocket + Yjs</h3>
-              <p className="text-slate-400">Edición colaborativa integrada en el mismo puerto</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
-            <div className="space-y-4">
-              <div className="p-4 bg-slate-800 rounded-xl border border-slate-700">
-                <Users className="w-6 h-6 text-teal-400 mb-2" />
-                <h4 className="font-bold text-teal-300 mb-1">Colaboración a nivel de iDevice</h4>
-                <p className="text-sm text-slate-400">Varios usuarios editan el mismo proyecto simultáneamente con bloqueo por iDevice o por página.</p>
-                <code className="text-xs text-yellow-400 mt-2 block">COLLABORATIVE_BLOCK_LEVEL=idevice</code>
-              </div>
-              <div className="p-4 bg-slate-800 rounded-xl border border-slate-700">
-                <Settings className="w-6 h-6 text-orange-400 mb-2" />
-                <h4 className="font-bold text-orange-300 mb-1">Sin configuración extra</h4>
-                <p className="text-sm text-slate-400">El WebSocket escucha en el mismo puerto de la app. Solo necesita soporte de upgrade en el proxy.</p>
-              </div>
-            </div>
-            <div className="flex flex-col justify-center">
-              <CodeBlock
-                title="nginx — Proxy WebSocket /yjs/"
-                code={`location /yjs/ {
-  proxy_pass http://exelearning:8080;
-  proxy_http_version 1.1;
-  proxy_set_header Upgrade $http_upgrade;
-  proxy_set_header Connection "upgrade";
-  proxy_set_header Host $host;
-  proxy_read_timeout 86400;
-}`}
-              />
             </div>
           </div>
         </div>
