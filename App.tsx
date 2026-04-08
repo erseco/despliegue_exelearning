@@ -8,7 +8,7 @@ import { SlideData } from './types';
 // Logo Constants
 const LOGO_EXE = "https://raw.githubusercontent.com/exelearning/exelearning/main/public/images/logo_readme.png";
 const LOGO_DOCKER = "https://cdn.simpleicons.org/docker/2496ED";
-const LOGO_BUN = "https://cdn.simpleicons.org/bun/F9F1E1";
+const LOGO_BUN = "https://cdn.simpleicons.org/bun/F4C430";
 const LOGO_TYPESCRIPT = "https://cdn.simpleicons.org/typescript/3178C6";
 const LOGO_NGINX = "https://cdn.simpleicons.org/nginx/009639";
 const LOGO_REDIS = "https://cdn.simpleicons.org/redis/DC382D";
